@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  basePath: '/ctfs',
+  assetPrefix: '/ctfs/',
+};
 
 export default nextConfig;
