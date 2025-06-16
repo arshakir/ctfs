@@ -20,7 +20,7 @@ export async function generateStaticParams() {
   const ctfs = getCTFs()
 
   return ctfs.map((ctf) => ({
-    slug: ctf.slug,
+    ctfSlug: ctf.slug,
   }))
 }
 
