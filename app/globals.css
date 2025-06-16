@@ -2,26 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 250 250 250; /* light-bg-primary */
+    --foreground: 24 24 27; /* light-text-primary */
+    --card: 255 255 255; /* light-bg-secondary */
+    --card-foreground: 24 24 27; /* light-text-primary */
+    --popover: 255 255 255; /* light-bg-secondary */
+    --popover-foreground: 24 24 27; /* light-text-primary */
+    --primary: 59 130 246; /* light-accent-primary */
+    --primary-foreground: 248 250 252;
+    --secondary: 244 244 245; /* light-bg-tertiary */
+    --secondary-foreground: 24 24 27; /* light-text-primary */
+    --muted: 244 244 245; /* light-bg-tertiary */
+    --muted-foreground: 113 113 122; /* light-text-muted */
+    --accent: 244 244 245; /* light-bg-tertiary */
+    --accent-foreground: 24 24 27; /* light-text-primary */
+    --destructive: 239 68 68;
+    --destructive-foreground: 248 250 252;
+    --border: 228 228 231; /* light-border */
+    --input: 228 228 231; /* light-border */
+    --ring: 59 130 246; /* light-accent-primary */
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 26 27 38; /* dark-bg-primary */
+    --foreground: 192 202 245; /* dark-text-primary */
+    --card: 36 40 59; /* dark-bg-secondary */
+    --card-foreground: 192 202 245; /* dark-text-primary */
+    --popover: 36 40 59; /* dark-bg-secondary */
+    --popover-foreground: 192 202 245; /* dark-text-primary */
+    --primary: 122 162 247; /* dark-accent-primary */
+    --primary-foreground: 26 27 38; /* dark-bg-primary */
+    --secondary: 47 51 73; /* dark-bg-tertiary */
+    --secondary-foreground: 192 202 245; /* dark-text-primary */
+    --muted: 47 51 73; /* dark-bg-tertiary */
+    --muted-foreground: 86 95 137; /* dark-text-muted */
+    --accent: 47 51 73; /* dark-bg-tertiary */
+    --accent-foreground: 192 202 245; /* dark-text-primary */
+    --destructive: 239 68 68;
+    --destructive-foreground: 248 250 252;
+    --border: 59 66 97; /* dark-border */
+    --input: 59 66 97; /* dark-border */
+    --ring: 122 162 247; /* dark-accent-primary */
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-light-bg-primary dark:bg-dark-bg-primary text-light-text-primary dark:text-dark-text-primary;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer components {
+  .prose-custom {
+    @apply prose prose-slate dark:prose-invert max-w-none;
+    @apply prose-headings:text-light-text-primary dark:prose-headings:text-dark-text-primary;
+    @apply prose-p:text-light-text-secondary dark:prose-p:text-dark-text-secondary;
+    @apply prose-code:text-light-accent-primary dark:prose-code:text-dark-accent-primary;
+    @apply prose-pre:bg-light-bg-tertiary dark:prose-pre:bg-dark-bg-tertiary;
+    @apply prose-pre:border prose-pre:border-light-border dark:prose-pre:border-dark-border;
+    @apply prose-a:text-light-accent-primary dark:prose-a:text-dark-accent-primary;
+    @apply prose-strong:text-light-text-primary dark:prose-strong:text-dark-text-primary;
+    @apply prose-li:text-light-text-secondary dark:prose-li:text-dark-text-secondary;
+  }
+
+  /* Enhanced code block styling */
+  pre {
+    @apply p-4 rounded-lg overflow-x-auto bg-light-bg-tertiary dark:bg-dark-bg-tertiary border border-light-border dark:border-dark-border;
+    font-family: "Fira Code", "Monaco", "Cascadia Code", "Roboto Mono", monospace;
+    line-height: 1.5;
+  }
+
+  code {
+    @apply font-mono text-sm;
+    font-family: "Fira Code", "Monaco", "Cascadia Code", "Roboto Mono", monospace;
   }
 }

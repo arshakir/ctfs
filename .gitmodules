@@ -1,0 +1,3 @@
+[submodule "writeups"]
+	path = writeups
+	url = https://github.com/arshakir/ctf-writeups
