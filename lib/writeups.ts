@@ -298,7 +298,6 @@ export function getCTFs(): CTF[] {
 }
 
 export function getCTFBySlug(slug: string): CTF | undefined {
-  console.log(getCTFs());
   return getCTFs().find((ctf) => ctf.slug === slug)
 }
 
