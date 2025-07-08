@@ -62,33 +62,42 @@ export async function getCategoryList(): Promise<Category[]> {
 	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
-	const count: { [key: string]: number } = {};
-	allBlogPosts.map((post: { data: { category: string | null } }) => {
-		if (!post.data.category) {
-			const ucKey = i18n(I18nKey.uncategorized);
-			count[ucKey] = count[ucKey] ? count[ucKey] + 1 : 1;
-			return;
+
+	type CategoryMeta = {
+		count: number;
+		latestDate: Date;
+	};
+
+	const metaMap: { [key: string]: CategoryMeta } = {};
+
+	for (const post of allBlogPosts) {
+		const { category, published} = post.data;
+		const date = new Date(published);
+
+		const key = category
+			? String(category).trim()
+			: i18n(I18nKey.uncategorized);
+
+		if (!metaMap[key]) {
+			metaMap[key] = {
+				count: 1,
+				latestDate: date,
+			};
+		} else {
+			metaMap[key].count += 1;
+			if (date < metaMap[key].latestDate) {
+				metaMap[key].latestDate = date;
+			}
 		}
-
-		const categoryName =
-			typeof post.data.category === "string"
-				? post.data.category.trim()
-				: String(post.data.category).trim();
-
-		count[categoryName] = count[categoryName] ? count[categoryName] + 1 : 1;
-	});
-
-	const lst = Object.keys(count).sort((a, b) => {
-		return a.toLowerCase().localeCompare(b.toLowerCase());
-	});
-
-	const ret: Category[] = [];
-	for (const c of lst) {
-		ret.push({
-			name: c,
-			count: count[c],
-			url: getCategoryUrl(c),
-		});
 	}
+
+	const ret: Category[] = Object.entries(metaMap)
+		.sort(([, a], [, b]) => b.latestDate.getTime() - a.latestDate.getTime())
+		.map(([name, meta]) => ({
+			name,
+			count: meta.count,
+			url: getCategoryUrl(name),
+		}));
+
 	return ret;
 }
