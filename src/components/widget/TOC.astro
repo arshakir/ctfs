@@ -16,7 +16,7 @@ for (const heading of headings) {
 
 const className = Astro.props.class;
 
-const isPostsRoute = Astro.url.pathname.startsWith("/posts/");
+const isPostsRoute = Astro.url.pathname.startsWith("/ctfs/posts/");
 
 const removeTailingHash = (text: string) => {
 	let lastIndexOfHash = text.lastIndexOf("#");

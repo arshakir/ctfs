@@ -1,4 +1,11 @@
 # About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
 
-::github{repo="saicaca/fuwari"}
+Hi this is my ctf website
+
+[Personal Website](https://arshakir.github.io)
+
+CTF Writeups github repo:
+::github{repo="arshakir/ctf-writeups"}
+
+This github repo:
+::github{repo="arshakir/ctfs"}
