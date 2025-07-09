@@ -71,7 +71,7 @@ export async function getCategoryList(): Promise<Category[]> {
 	const metaMap: { [key: string]: CategoryMeta } = {};
 
 	for (const post of allBlogPosts) {
-		const { category, published} = post.data;
+		const { category, published } = post.data;
 		const date = new Date(published);
 
 		const key = category
