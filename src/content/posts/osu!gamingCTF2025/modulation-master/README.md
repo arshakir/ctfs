@@ -66,11 +66,19 @@ Now with this our life gets easier, because to extract the data we just look int
 
 Next we split the graphs into 8 segments for each bit and apply fft (Fast Fourier Transform) so that we can extract the frequency and phase data 
 
-Looking at the graphs if they all have the same frequency then it must be Phase Modulation, but if they don't its either Frequency or Amplitude
+The [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform) essentially transforms our raw data in each segment such that the complex value in each index corresponds to its magnitude and phase for the frequency represented by that index.
 
-The good thing is that we don't need to differentiate between Frequency or Amplitude because constant 0 will have a frequency of 0 which represents 0 in both
+In our case, for an array with a single sinusoid we can expect to find one (technically 2 but its whatever) value in the array with a very high magnitude with its index representing the frequency for such a sinusoid. Using this we can find the approximate frequency and phase(the angle of the complex value) that represents the sinusoid in each segment of the graph.
 
-Now depending on the frequency or phase we can determine the bit representation of the graph and decode it into ascii
+From this we get a frequency and phase value for each segment which we can analyze to determine the modulation and decode it
+
+1. Amplitude Modulation - We expect the the frequency list to contain 2 distinct values, a low value (about 0) for the constant part, and a higher value for the wave part
+
+2. Frequency Modulation - Similar to 1. there should be 2 values, one for a lower frequency representing 0 bit, and a higher frequency for a 1 bit
+
+3. Phase Modulation - In this case we should see that the frequency should contain almost all the same values, but the phase should contain values for -pi and pi representing a positive and negative phase shift from cos(x). We can map these phase shifts to the bit values, pos for 1 bit, neg for 0 bit.
+
+Applying the above we get our binary string that we can then convert to a char which is the answer
 
 
 ## Browser Automation
