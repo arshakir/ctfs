@@ -225,5 +225,5 @@ For the selenium part we load up the site, hit start, and then wait for everythi
 
 Once we get to lvl 100 with less than 10 wrong answers the website gives us our flag: `osu{I_h0p3_y0u_d1dn't_u53_LLM_2_s0Lv3_7H1S}`
 
-It actually took me a while even after I wrote a working solution because it kept disconnecting me, but after the challenge was moved to the instancer I was able to get this:
+It actually took me a while even after I wrote a working solution because it kept disconnecting me, but after the challenge was moved to the instancer I was able to get this at almost 3 am for the first time:
 ![first blood](first_blood.png)
